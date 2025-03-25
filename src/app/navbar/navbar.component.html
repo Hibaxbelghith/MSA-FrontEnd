@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <div class="logo">
+    <a routerLink="/">E-Commerce</a>
+  </div>
+  <div class="menu">
+    <a routerLink="/login" class="btn" *ngIf="!isLoggedIn">Login</a>
+    <a routerLink="/signup" class="btn" *ngIf="!isLoggedIn">Signup</a>
+    <button class="btn btn-danger" (click)="logout()" *ngIf="isLoggedIn">Déconnexion</button>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
