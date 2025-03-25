@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     background: #007bff;
     color: white;
   }
@@ -14,7 +14,7 @@
   
   .navbar .menu .btn {
     margin-left: 15px;
-    padding: 8px 15px;
+    padding: 7px 12px;
     background: white;
     color: #007bff;
     border-radius: 5px;
