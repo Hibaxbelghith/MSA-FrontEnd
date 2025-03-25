@@ -33,7 +33,7 @@ export class LoginComponent {
       (response) => {
         console.log('Response from backend:', response);
         localStorage.setItem('authToken', response.token);
-        console.log('Token stored:', localStorage.getItem('authToken')); // Debugging
+        console.log('Token stored:', localStorage.getItem('authToken')); 
 
         this.router.navigateByUrl('/dashboard/list').then(success => {
         if (success) {
