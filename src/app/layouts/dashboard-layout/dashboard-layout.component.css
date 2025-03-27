@@ -1,0 +1,11 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .main-content {
+    margin-left: 100px; /* Même largeur que la sidebar */
+    padding: 30px;
+    flex-grow: 1;
+  }
+  

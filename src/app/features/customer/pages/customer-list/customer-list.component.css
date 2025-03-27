@@ -104,3 +104,10 @@ td {
   color: white;
   font-weight: bold;
 }
+
+/* Styling for the export buttons */
+.export-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}

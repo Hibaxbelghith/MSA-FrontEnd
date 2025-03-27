@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CustomerService {
 
-  private baseUrl = 'http://localhost:8089/customer/customer'; // Your backend API
+  private baseUrl = 'http://localhost:8089/customer/customer'; // backend API
 
 
   constructor(private http: HttpClient) { }
@@ -34,7 +34,7 @@ export class CustomerService {
   }*/
 
     //get all customers with pagination and filtering
-    getCustomers(page: number = 0, size: number = 10, firstName?: string, lastName?: string): Observable<any> {
+    getCustomers(page: number = 0, size: number = 3, firstName?: string, lastName?: string): Observable<any> {
       let params = new HttpParams()
         .set('page', page.toString())
         .set('size', size.toString());
@@ -45,18 +45,46 @@ export class CustomerService {
       return this.http.get<any>('http://localhost:8089/customer/customer/filtered', { params });
     }
 
+    getCustomerById(customerId: number): Observable<any> {
+      return this.http.get<any>(`${this.baseUrl}/retrieve-Customer/${customerId}`); 
+    }
+
     addCustomer(customer: any): Observable<string> {
       return this.http.post<string>(`${this.baseUrl}/add-Customer`, customer);
     }
   
-    updateCustomer(customer: any): Observable<void> {
-      return this.http.put<void>(`${this.baseUrl}/modify-Customer`, customer);
-    }
-  
+    updateCustomer(customerData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/modify-Customer`, customerData);
+}
+
     deleteCustomer(customerId: string): Observable<void> {
       return this.http.delete<void>(`${this.baseUrl}/remove-Customer/${customerId}`);
     }
     
+    // Méthode pour exporter en CSV
+  exportToCsv(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/export/csv`, { responseType: 'blob' });
+  }
+
+  // Méthode pour exporter en PDF
+  exportToPdf(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/export/pdf`, { responseType: 'blob' });
+  }
+
+   // Fonction pour obtenir le total des clients
+   getTotalCustomers(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/total`);
+  }
+
+  // Fonction pour obtenir le nombre de clients par code postal
+  getCustomersByZipCode(): Observable<Map<string, number>> {
+    return this.http.get<Map<string, number>>(`${this.baseUrl}/stats/customers-by-zip`);
+  }
+
+  // Fonction pour obtenir les clients avec le nombre de commandes
+  getCustomersWithOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/stats/customers-with-orders`);
+  }
     
   
 }

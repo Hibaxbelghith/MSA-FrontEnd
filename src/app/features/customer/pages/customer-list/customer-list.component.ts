@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../services/customer.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-list',
@@ -16,13 +18,13 @@ export class CustomerListComponent implements OnInit {
   errorMessage: string = '';
 
   page: number = 0;
-  size: number = 5; // Change size as needed
+  size: number = 3; 
   totalPages: number = 0;
 
   searchFirstName: string = '';
   searchLastName: string = '';
 
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService, private snackBar: MatSnackBar, private router: Router) {}
 
   
   ngOnInit(): void {
@@ -30,11 +32,13 @@ export class CustomerListComponent implements OnInit {
   }
 
   loadCustomers(): void {
-    this.customerService.getCustomers().subscribe(
+    this.customerService.getCustomers(this.page, this.size, this.searchFirstName, this.searchLastName).subscribe(
       (data) => {
-        console.log('Réponse de l\'API :', data); // Vérifier la réponse reçue
-        this.customers = data.content; // Vérifiez bien que la réponse contient 'content'
-        console.log('Liste des clients :', this.customers);
+        console.log('Réponse de l\'API :', data); 
+        this.customers = data.content; 
+        this.totalPages = data.totalPages; 
+        console.log('Total des pages :', this.totalPages);
+        console.log('Clients récupérés :', this.customers);
       },
       (error) => {
         console.error('Erreur lors de la récupération des clients:', error);
@@ -43,11 +47,15 @@ export class CustomerListComponent implements OnInit {
   }
   searchCustomers(firstName: string, lastName: string): void {
     if (!firstName && !lastName) {
-      alert("Veuillez entrer un prénom ou un nom pour rechercher !");
+      this.snackBar.open('Veuillez entrer un prénom ou un nom pour rechercher !', 'Fermer', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
       return;
     }
   
-    this.customerService.getCustomers(0, 10, firstName, lastName).subscribe(
+    this.customerService.getCustomers(0, 3, firstName, lastName).subscribe(
       (data) => {
         console.log('Résultats de la recherche :', data);
         this.customers = data.content;
@@ -75,39 +83,55 @@ export class CustomerListComponent implements OnInit {
     return pages;
   }
 
-  editCustomer(customer: any): void { 
-    const updatedFirstName = prompt("Modifier le prénom :", customer.firstName);
-    const updatedLastName = prompt("Modifier le nom :", customer.lastName);
-  
-    if (updatedFirstName !== null && updatedLastName !== null) {
-      const updatedCustomer = { 
-        id: customer.id, 
-        firstName: updatedFirstName, 
-        lastName: updatedLastName 
-      };
-  
-      console.log("Données envoyées à l'API :", updatedCustomer); // DEBUG
-  
-      this.customerService.updateCustomer(updatedCustomer).subscribe(() => {
-        alert('Client modifié avec succès !');
-        this.loadCustomers();
-      }, (error) => {
-        console.error('Erreur lors de la modification du client :', error);
-        console.error('Réponse complète de l\'API :', error.error); // Ajout de détails
-      });
-    }
+  editCustomer(customer : any): void {
+    console.log(customer);
+    this.router.navigate(['/edit-customer', customer.id]); 
   }
-  
-  
-  
+
 
   deleteCustomer(customerId: string): void {
     if (confirm('Voulez-vous vraiment supprimer ce client ?')) {
       this.customerService.deleteCustomer(customerId).subscribe(() => {
-        alert('Client supprimé avec succès !');
+        this.snackBar.open('Client supprimé avec succès !', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
         this.loadCustomers();
       });
     }
+  }
+
+  // Fonction pour exporter en CSV
+  exportToCsv(): void {
+    this.customerService.exportToCsv().subscribe(
+      (data: Blob) => {
+        const blob = new Blob([data], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'customers.csv';
+        link.click();
+      },
+      (error) => {
+        this.snackBar.open('Erreur lors de l\'exportation en CSV', 'Fermer', { duration: 3000 });
+      }
+    );
+  }
+
+  // Fonction pour exporter en PDF
+  exportToPdf(): void {
+    this.customerService.exportToPdf().subscribe(
+      (data: Blob) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'customers.pdf';
+        link.click();
+      },
+      (error) => {
+        this.snackBar.open('Erreur lors de l\'exportation en PDF', 'Fermer', { duration: 3000 });
+      }
+    );
   }
   
 
