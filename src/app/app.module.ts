@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { HomeComponentComponent } from './home-component/home-component.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-l
     AppComponent,
     NavbarComponent,
     SidebarComponent,
-    DashboardLayoutComponent
+    DashboardLayoutComponent,
+    HomeComponentComponent
   ],
   imports: [
     BrowserModule,

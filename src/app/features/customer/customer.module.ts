@@ -11,6 +11,8 @@ import { SignupComponent } from './pages/auth/signup.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EditCustomerComponent } from './pages/customer-form/edit-customer/edit-customer.component';
 import { CustomerStatisticsComponent } from './pages/customer-statistics/customer-statistics.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { CustomerStatisticsComponent } from './pages/customer-statistics/custome
     LoginComponent,
     SignupComponent,
     EditCustomerComponent,
-    CustomerStatisticsComponent
+    CustomerStatisticsComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
     
   ],
   imports: [

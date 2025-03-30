@@ -24,26 +24,31 @@ export class LoginComponent {
 
   onLogin() {
     console.log('Form Data Sent:', this.loginForm.value);
-  if (this.loginForm.invalid) {
-    console.error('Form is invalid');
-    return;
-  }
-    console.log('Form Data Sent:', this.loginForm.value);
+  
+    if (this.loginForm.invalid) {
+      console.error('Form is invalid');
+      return;
+    }
+  
     this.customerService.login(this.loginForm.value).subscribe(
       (response) => {
         console.log('Response from backend:', response);
+  
+        // Store the token
         localStorage.setItem('authToken', response.token);
-        console.log('Token stored:', localStorage.getItem('authToken')); 
-
-        this.router.navigateByUrl('/dashboard/list').then(success => {
-        if (success) {
-          console.log('Navigation successful!');
+        console.log('Token stored:', localStorage.getItem('authToken'));
+  
+        // Check the user's role and redirect accordingly
+        if (response.role === 'ADMIN') {
+          this.router.navigateByUrl('/dashboard/list').then(success => {
+            console.log(success ? 'Navigation to Admin Dashboard successful!' : 'Navigation failed!');
+          });
         } else {
-          console.error('Navigation failed!');
+          this.router.navigateByUrl('/home').then(success => {
+            console.log(success ? 'Navigation to Home successful!' : 'Navigation failed!');
+          });
         }
-      });
-      
-    },
+      },
       (error) => {
         console.error('Login error:', error);
         this.errorMessage = error.error.message || 'Invalid email or password';

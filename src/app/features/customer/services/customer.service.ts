@@ -85,6 +85,16 @@ export class CustomerService {
   getCustomersWithOrders(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/stats/customers-with-orders`);
   }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-password`, { token, newPassword });
+}
+
+
     
   
 }
