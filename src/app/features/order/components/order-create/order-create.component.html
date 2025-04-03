@@ -1,0 +1,139 @@
+<div class="order-form-container">
+  <h2>Create New Order</h2>
+
+  <form (ngSubmit)="submitOrder()" class="order-form">
+    <!-- Reference -->
+    <div class="form-group">
+      <label for="reference">Order Reference:</label>
+      <input
+        id="reference"
+        type="text"
+        [(ngModel)]="orderRequest.reference"
+        name="reference"
+        required
+        readonly
+        class="form-control"
+      />
+    </div>
+
+    <!-- Customer ID -->
+    <div class="form-group">
+      <label for="customerId">Customer ID:</label>
+      <input
+        id="customerId"
+        type="text"
+        [(ngModel)]="orderRequest.customerId"
+        name="customerId"
+        required
+        class="form-control"
+        placeholder="Enter customer ID"
+      />
+    </div>
+
+    <!-- Payment Method -->
+    <div class="form-group">
+      <label for="paymentMethod">Payment Method:</label>
+      <select
+        id="paymentMethod"
+        [(ngModel)]="orderRequest.paymentMethod"
+        name="paymentMethod"
+        class="form-control"
+      >
+        <option *ngFor="let method of paymentMethods" [value]="method">
+          {{ method }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Products Section -->
+    <div class="products-section">
+      <h3>Products</h3>
+
+      <!-- Add Product Form -->
+      <div class="add-product-form">
+        <div class="form-group">
+          <label for="productId">Product ID:</label>
+          <input
+            id="productId"
+            type="number"
+            [(ngModel)]="newProduct.productId"
+            name="productId"
+            class="form-control"
+            placeholder="Enter product ID"
+            min="1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input
+            id="quantity"
+            type="number"
+            [(ngModel)]="newProduct.quantity"
+            name="quantity"
+            class="form-control"
+            placeholder="Enter quantity"
+            min="1"
+          />
+        </div>
+
+        <button
+          type="button"
+          (click)="addProduct()"
+          class="btn btn-primary"
+          [disabled]="newProduct.productId <= 0 || newProduct.quantity <= 0"
+        >
+          Add Product
+        </button>
+      </div>
+
+      <!-- Products List -->
+      <div class="products-list" *ngIf="orderRequest.products.length > 0">
+        <h4>Added Products</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of orderRequest.products; let i = index">
+                <td>{{ product.productId }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="removeProduct(i)"
+                    class="btn btn-danger btn-sm"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="isLoading || orderRequest.products.length === 0"
+      >
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+        {{ isLoading ? "Processing..." : "Place Order" }}
+      </button>
+    </div>
+  </form>
+</div>

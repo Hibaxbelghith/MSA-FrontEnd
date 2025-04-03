@@ -6,18 +6,26 @@ import { AppComponent } from './app.component';
 import { CustomerModule } from './features/customer/customer.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { OrderCreateComponent } from './features/order/components/order-create/order-create.component';
+import { OrderListComponent } from './features/order/components/order-list/order-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    OrderCreateComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CustomerModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule // <-- Add this line
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
