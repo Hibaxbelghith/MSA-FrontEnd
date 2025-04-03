@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,7 +14,7 @@ export class ForgotPasswordComponent {
     email: ['', [Validators.required, Validators.email]],
   });
 
-  constructor(private fb: FormBuilder, private cs:CustomerService, private router: Router) {}
+  constructor(private fb: FormBuilder, private cs:CustomerService, private router: Router, private snackBar: MatSnackBar) {}
 
   onSubmit() {
     if (this.forgotPasswordForm.invalid) {
@@ -26,12 +27,20 @@ export class ForgotPasswordComponent {
       this.cs.forgotPassword(email).subscribe(
         response => {
           console.log('Response from backend:', response); 
-          alert('Password reset email sent!');
+          this.snackBar.open('Password reset email sent!', 'Fermer', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
           this.router.navigate(['/login']);
         },
         error => {
           console.error('Error during password reset request:', error);
-          alert('Error sending password reset email');
+          this.snackBar.open(error.error.message || 'Email already exists.', 'Fermer', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
         }
       );
     } else {

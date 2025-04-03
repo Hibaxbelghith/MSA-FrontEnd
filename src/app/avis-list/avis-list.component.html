@@ -1,0 +1,45 @@
+<div class="avis-list">
+  <h2>Liste des Avis</h2>
+
+  <!-- Section d'ajout d'avis -->
+  <div class="add-avis">
+    <h3>Ajouter un Avis</h3>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Formulaire d'ajout d'avis -->
+    <form (submit)="addAvis()" class="form-avis">
+      <label for="message">Message :</label>
+      <textarea [(ngModel)]="message" name="message" id="message" required></textarea>
+
+      <label for="rating">Note :</label>
+      <input type="number" [(ngModel)]="rating" name="rating" id="rating" min="1" max="5" required />
+
+      <button type="submit" class="btn-submit">Envoyer</button>
+    </form>
+  </div>
+
+  <!-- Message si aucune avis n'est trouvé -->
+  <div *ngIf="avisList && avisList.length === 0" class="no-avis">
+    <p>Aucun avis trouvé.</p>
+  </div>
+
+  <!-- Liste des avis -->
+  <div *ngIf="avisList && avisList.length > 0">
+    <ul>
+      <li *ngFor="let avis of avisList" >
+        <div class="avis-item">
+          <p><strong>Email:</strong> {{ avis.utilisateur.email }}</p>
+          <p><strong>Message:</strong> {{ avis.message }}</p>
+          <p><strong>Note:</strong> {{ avis.rating }}</p>
+    
+          <!-- Afficher l'analyse de sentiment -->
+          <p><strong>Sentiment:</strong> {{ sentiment || 'Non analysé' }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class CustomerService {
 
   private baseUrl = 'http://localhost:8089/customer/customer'; // backend API
-
+  private apiAvis = 'http://localhost:5000/api/avis';
 
   constructor(private http: HttpClient) { }
 
@@ -92,6 +92,16 @@ export class CustomerService {
 
   resetPassword(token: string, newPassword: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/reset-password`, { token, newPassword });
+}
+
+// Méthode pour récupérer les avis
+getAvis(): Observable<any> {
+  return this.http.get<any>(this.apiAvis);
+}
+
+// Méthode pour soumettre un nouvel avis
+submitAvis(avis: any): Observable<any> {
+  return this.http.post<any>(this.apiAvis, avis);
 }
 
 

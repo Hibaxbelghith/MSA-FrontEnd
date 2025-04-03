@@ -35,9 +35,16 @@ export class LoginComponent {
         console.log('Response from backend:', response);
   
         // Store the token
-        localStorage.setItem('authToken', response.token);
-        console.log('Token stored:', localStorage.getItem('authToken'));
-  
+      localStorage.setItem('authToken', response.token);
+      console.log('Token stored:', localStorage.getItem('authToken'));
+
+      // Store the user information
+      localStorage.setItem('utilisateur', JSON.stringify(response.utilisateur));
+      console.log('Utilisateur stored:', localStorage.getItem('utilisateur'));
+
+      localStorage.setItem('userEmail', response.email);
+      console.log('Email stored:', localStorage.getItem('userEmail'));
+
         // Check the user's role and redirect accordingly
         if (response.role === 'ADMIN') {
           this.router.navigateByUrl('/dashboard/list').then(success => {

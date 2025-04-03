@@ -6,17 +6,19 @@ import { EditCustomerComponent } from './features/customer/pages/customer-form/e
 import { ForgotPasswordComponent } from './features/customer/pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/customer/pages/reset-password/reset-password.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
+import { AvisListComponent } from './avis-list/avis-list.component';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule) },
   { path: 'home', component: HomeComponentComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'avis', component: AvisListComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'edit-customer/:id', component: EditCustomerComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default redirect
-  { path: '**', redirectTo: '/login' } // Redirect unknown routes
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
+  { path: '**', redirectTo: '/home' } // Redirect unknown routes
 ];
 
 

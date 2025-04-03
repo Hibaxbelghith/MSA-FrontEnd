@@ -1,0 +1,10 @@
+{
+  "/text-razor": {
+    "target": "https://api.textrazor.com/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/text-razor": ""
+    }
+  }
+}

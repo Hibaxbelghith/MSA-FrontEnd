@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomerModule } from './features/customer/customer.module';
@@ -9,7 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
-
+import { AvisListComponent } from './avis-list/avis-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { HomeComponentComponent } from './home-component/home-component.componen
     NavbarComponent,
     SidebarComponent,
     DashboardLayoutComponent,
-    HomeComponentComponent
+    HomeComponentComponent,
+    AvisListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,8 @@ import { HomeComponentComponent } from './home-component/home-component.componen
     CustomerModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    CustomerModule
+    CustomerModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
