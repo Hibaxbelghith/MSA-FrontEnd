@@ -28,18 +28,38 @@
   </div>
 
   <!-- Liste des avis -->
-  <div *ngIf="avisList && avisList.length > 0">
-    <ul>
-      <li *ngFor="let avis of avisList" >
-        <div class="avis-item">
-          <p><strong>Email:</strong> {{ avis.utilisateur.email }}</p>
-          <p><strong>Message:</strong> {{ avis.message }}</p>
-          <p><strong>Note:</strong> {{ avis.rating }}</p>
-    
-          <!-- Afficher l'analyse de sentiment -->
-          <p><strong>Sentiment:</strong> {{ sentiment || 'Non analysé' }}</p>
-        </div>
-      </li>
-    </ul>
+  <div *ngFor="let avis of avisList" class="avis-card">
+    <!-- Section originale -->
+    <div class="review-header">
+      <p class="user-email">
+        <strong>👤 Utilisateur :</strong> {{ avis.utilisateur.email || 'Anonyme' }}
+      </p>
+      <p class="review-rating">
+        <strong>⭐ Note :</strong> 
+        <app-star-rating [rating]="avis.rating"></app-star-rating>
+
+      </p>
+      <p class="review-date">
+        <strong>📅 Date :</strong> {{ avis.date | date:'dd/MM/yyyy' }}
+      </p>
+    </div>
+  
+    <div class="review-message">
+      <strong>💬 Message :</strong> 
+      <p>{{ avis.message }}</p>
+    </div>
+  
+    <!-- Nouvelle analyse de sentiment -->
+    <div class="sentiment-display">
+      <strong>🧠 Analyse :</strong>
+      <span class="sentiment-label" 
+            [class.positive]="analyzeSentiment(avis.message).label === 'POSITIF'"
+            [class.negative]="analyzeSentiment(avis.message).label === 'NÉGATIF'"
+            [class.neutral]="analyzeSentiment(avis.message).label === 'NEUTRE'">
+        {{ analyzeSentiment(avis.message).emoji }} 
+        {{ analyzeSentiment(avis.message).label }}
+        (Score: {{ analyzeSentiment(avis.message).score }})
+      </span>
+    </div>
   </div>
 </div>

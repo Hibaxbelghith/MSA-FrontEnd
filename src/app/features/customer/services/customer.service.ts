@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs'; // <-- Ajoutez 'of' ici
 
 @Injectable({
   providedIn: 'root'
@@ -103,8 +103,6 @@ getAvis(): Observable<any> {
 submitAvis(avis: any): Observable<any> {
   return this.http.post<any>(this.apiAvis, avis);
 }
-
-
     
   
 }

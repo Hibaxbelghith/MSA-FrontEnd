@@ -10,6 +10,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { AvisListComponent } from './avis-list/avis-list.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AvisListComponent } from './avis-list/avis-list.component';
     SidebarComponent,
     DashboardLayoutComponent,
     HomeComponentComponent,
-    AvisListComponent
+    AvisListComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

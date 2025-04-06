@@ -15,12 +15,50 @@ export class AvisListComponent implements OnInit{
   message: string = ''; // Message de l'avis
   rating: number = 0; // Note de l'avis
   errorMessage: string = '';
-  sentiment: string = '';
+  
  
 
   constructor(private avisService: CustomerService,
     private alerte : MatSnackBar
   ) {}
+
+  // Dictionnaire de mots avec poids (positifs/négatifs)
+  private readonly SENTIMENT_LEXICON: { [word: string]: number } = {
+    // Positifs (+1 à +2)
+    'super': 2, 'excellent': 2, 'génial': 2, 'parfait': 2, 'recommande': 1,
+    'bon': 1, 'qualité': 1, 'satisfait': 1, 'rapide': 1, 'efficace': 1,
+
+    // Négatifs (-1 à -2)
+    'mauvais': -2, 'déçu': -2, 'horrible': -2, 'décevant': -2, 'pire': -2,
+    'lent': -1, 'cher': -1, 'problème': -1, 'insatisfait': -1, 'éviter': -1
+  };
+
+  analyzeSentiment(message: string): { score: number; label: string; emoji: string } {
+    const words = message.toLowerCase().split(/\s+/);
+    let score = 0;
+
+    // Calcul du score
+    words.forEach(word => {
+      if (this.SENTIMENT_LEXICON[word]) {
+        score += this.SENTIMENT_LEXICON[word];
+      }
+    });
+
+    // Détection du sentiment
+    let label, emoji;
+    if (score > 1) {
+      label = 'POSITIF';
+      emoji = '😊';
+    } else if (score < -1) {
+      label = 'NÉGATIF';
+      emoji = '😠';
+    } else {
+      label = 'NEUTRE';
+      emoji = '😐';
+    }
+
+    return { score, label, emoji };
+  }
 
   ngOnInit() {
     this.avisService.getAvis().subscribe(response => {
