@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <div class="logo">
+    <a href="#">
+    <img src="../../assets/images/logo.png" width="90px" height="70px">
+  </a>
+  </div>
+  <div class="menu">
+    <a routerLink="/avis" class="btn">Avis</a>
+    <a routerLink="/login" class="btn" *ngIf="!isLoggedIn">Login</a>
+    <a routerLink="/signup" class="btn" *ngIf="!isLoggedIn">Signup</a>
+    <button class="btn" (click)="logout()" *ngIf="isLoggedIn">Déconnexion</button>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

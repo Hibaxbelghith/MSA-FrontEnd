@@ -1,0 +1,74 @@
+  
+    <!-- Clients par code postal 
+    <div class="stat">
+      <h3>Clients par code postal</h3>
+      <div *ngFor="let entry of customersByZipCode | keyvalue">
+        <p>{{ entry.key }}: {{ entry.value }} clients</p>
+      </div>
+    </div> -->
+
+    <!-- Clients avec nombre de commandes 
+    <div class="stat">
+      <h3>Clients par nombre de commandes</h3>
+      <div *ngFor="let customer of customersWithOrders">
+        <p>{{ customer.id }}: {{ customer.totalOrders }} commandes</p>
+      </div>
+    </div>
+  </div>-->
+
+    <h2>Statistiques des Clients</h2>
+  
+    <!-- Statistiques sous forme de cartes -->
+    <div class="stats-cards">
+      
+      <!-- Total des clients -->
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <h3>Total des Clients</h3>
+          <p>{{ totalCustomers }}</p>
+        </div>
+      </div>
+  
+      <!-- Clients par code postal -->
+      <div class="stat-card">
+        <div class="stat-icon">📍</div>
+        <div class="stat-info">
+          <h3>Clients par Code Postal</h3>
+          <ul>
+            <li *ngFor="let entry of customersByZipCode | keyvalue">
+              {{ entry.key }} : <strong>{{ entry.value }}</strong> clients
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Clients par nombre de commandes -->
+      <div class="stat-card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-info">
+          <h3>Clients avec Commandes</h3>
+          <ul>
+            <li *ngFor="let customer of customersWithOrders">
+              ID {{ customer.id }} : <strong>{{ customer.totalOrders }}</strong> commandes
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+    </div>
+  
+    <!-- Graphiques -->
+    <div class="charts-section">
+      <div class="chart-container">
+        <h3>Répartition des Clients 📍</h3>
+        <canvas #pieChartCanvas></canvas>
+      </div>  
+  
+      <div class="chart-container">
+        <h3>Commandes par Client 📊</h3>
+        <canvas #barChartCanvas></canvas>
+      </div>
+    </div>
+
+  

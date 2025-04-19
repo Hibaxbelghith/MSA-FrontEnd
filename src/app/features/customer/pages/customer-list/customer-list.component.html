@@ -1,0 +1,63 @@
+
+<h2>Customer List</h2>
+
+<!-- Search Filters -->
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchFirstName" placeholder="Rechercher par prénom..." class="search-input">
+  <input type="text" [(ngModel)]="searchLastName" placeholder="Rechercher par nom..." class="search-input">
+  <button (click)="searchCustomers(searchFirstName, searchLastName)" class="search-btn">🔍 Rechercher</button>
+</div>
+
+<!-- Ajoutez ces boutons dans votre HTML -->
+
+<!-- Export Buttons -->
+<div class="export-buttons mb-4">
+  <button (click)="exportToCsv()" class="btn btn-danger btn-sm">Exporter en CSV</button>
+  <button (click)="exportToPdf()" class="btn btn-success btn-sm">Exporter en PDF</button>
+</div>
+
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Adresse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.firstname }}</td>
+      <td>{{ customer.lastname }}</td>
+      <td>{{ customer.email }}</td>
+      <td>
+        {{ customer.address?.street }}, 
+        {{ customer.address?.houseNumber }},
+        {{ customer.address?.zipCode }}
+      </td>
+      <button (click)="editCustomer(customer)" class="btn btn-warning btn-sm me-2" >✏️ Modifier</button>
+      <button (click)="deleteCustomer(customer.id)" class="btn btn-danger btn-sm">🗑 Supprimer</button>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Pagination Controls -->
+<div class="pagination-container">
+  <button (click)="changePage(0)" [disabled]="page === 0">⏮ Première</button>
+  <button (click)="changePage(page - 1)" [disabled]="page === 0">◀ Précédente</button>
+
+  <span *ngFor="let p of getPageNumbers()" 
+        [class.active]="p === page"
+        (click)="changePage(p)">
+    {{ p + 1 }}
+  </span>
+  
+  <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Suivante ▶</button>
+  <button (click)="changePage(totalPages - 1)" [disabled]="page >= totalPages - 1">Dernière ⏭</button>
+</div>
+
+
