@@ -10,13 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderCreateComponent } from './features/order/components/order-create/order-create.component';
 import { OrderListComponent } from './features/order/components/order-list/order-list.component';
+import { OrderDetailComponent } from './features/order/components/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     OrderCreateComponent,
-    OrderListComponent
+    OrderListComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

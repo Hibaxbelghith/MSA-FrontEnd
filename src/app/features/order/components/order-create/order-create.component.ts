@@ -1,3 +1,4 @@
+// order-create.component.ts
 import { Component } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { OrderRequest, ProductRequest, PaymentMethod } from '../../models/order.model';
@@ -24,6 +25,7 @@ export class OrderCreateComponent {
   paymentMethods = Object.values(PaymentMethod);
   isLoading = false;
   errorMessage = '';
+  successMessage = '';
 
   constructor(
     private orderService: OrderService,
@@ -37,7 +39,19 @@ export class OrderCreateComponent {
 
   addProduct(): void {
     if (this.newProduct.productId > 0 && this.newProduct.quantity > 0) {
-      this.orderRequest.products.push({...this.newProduct});
+      // Check if product already exists
+      const existingIndex = this.orderRequest.products.findIndex(
+        p => p.productId === this.newProduct.productId
+      );
+      
+      if (existingIndex >= 0) {
+        // Update quantity if product exists
+        this.orderRequest.products[existingIndex].quantity += this.newProduct.quantity;
+      } else {
+        // Add new product
+        this.orderRequest.products.push({...this.newProduct});
+      }
+      
       this.newProduct = { productId: 0, quantity: 1 };
     }
   }
@@ -46,24 +60,39 @@ export class OrderCreateComponent {
     this.orderRequest.products.splice(index, 1);
   }
 
+  updateQuantity(index: number, newQuantity: number): void {
+    if (newQuantity > 0) {
+      this.orderRequest.products[index].quantity = newQuantity;
+    }
+  }
+
+  calculateTotal(): number {
+    return this.orderRequest.products.reduce((total, product) => {
+      // In a real app, you would fetch the product price from a service
+      return total + (product.quantity * 10); // Assuming each product costs $10 for demo
+    }, 0);
+  }
+
   submitOrder(): void {
     if (this.orderRequest.products.length === 0) {
       this.errorMessage = 'Please add at least one product';
       return;
     }
-
+  
     this.isLoading = true;
     this.errorMessage = '';
-
+    this.successMessage = '';
+  
     this.orderService.createOrder(this.orderRequest).subscribe({
       next: (order) => {
         this.isLoading = false;
-        this.router.navigate(['/orders']);
+        this.successMessage = `Order ${order.reference} created successfully!`;
+        setTimeout(() => this.router.navigate(['/orders', order.id]), 2000);
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error?.message || 'Failed to create order';
-        console.error('Error creating order:', err);
+        this.errorMessage = err.error?.message || 'Failed to create order. Please try again.';
+        console.error('Order creation error:', err);
       }
     });
   }

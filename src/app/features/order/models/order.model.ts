@@ -4,28 +4,36 @@ export interface Order {
     id?: number;
     reference: string;
     totalAmount: number;
-    paymentMethod: PaymentMethod;
+    paymentMethod: string;  
     customerId: string;
     orderLines: OrderLine[];
-    quantity: number;
-    createdAt?: Date;
-    lastModifiedDate?: Date;
-  }
-  
-  export interface OrderRequest {
+    createdAt?: string;     
+    lastModifiedDate?: string;
+}
+
+export interface OrderRequest {
     reference: string;
     customerId: string;
-    paymentMethod: PaymentMethod;
+    paymentMethod: string;  
     products: ProductRequest[];
-  }
+}
+
+export interface OrderResponse {
+    id: number;
+    reference: string;
+    totalAmount: number;
+    paymentMethod: string;
+    customerId: string;
+    createdAt: string;
+}
   
-  export interface ProductRequest {
+export interface ProductRequest {
     productId: number;
     quantity: number;
-  }
+}
   
-  export enum PaymentMethod {
+export enum PaymentMethod {
     CREDIT_CARD = 'CREDIT_CARD',
     PAYPAL = 'PAYPAL',
     BANK_TRANSFER = 'BANK_TRANSFER'
-  }
+}
