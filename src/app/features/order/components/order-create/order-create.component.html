@@ -1,0 +1,181 @@
+<!-- order-create.component.html -->
+<div class="container mt-4">
+  <h2>Create New Order</h2>
+
+  <div class="card">
+    <div class="card-body">
+      <form (ngSubmit)="submitOrder()">
+        <!-- Order Summary -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label class="form-label">Order Reference</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="orderRequest.reference"
+                name="reference"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label class="form-label">Payment Method</label>
+              <select
+                class="form-select"
+                [(ngModel)]="orderRequest.paymentMethod"
+                name="paymentMethod"
+              >
+                <option *ngFor="let method of paymentMethods" [value]="method">
+                  {{ method }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Information -->
+        <div class="mb-4">
+          <h5 class="mb-3">Customer Information</h5>
+          <div class="form-group">
+            <label class="form-label">Customer ID</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="orderRequest.customerId"
+              name="customerId"
+              required
+              placeholder="Enter customer ID"
+            />
+          </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="mb-4">
+          <h5 class="mb-3">Products</h5>
+
+          <!-- Add Product Form -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-5">
+              <label class="form-label">Product ID</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="newProduct.productId"
+                name="productId"
+                min="1"
+                placeholder="Enter product ID"
+              />
+            </div>
+            <div class="col-md-5">
+              <label class="form-label">Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="newProduct.quantity"
+                name="quantity"
+                min="1"
+                placeholder="Enter quantity"
+              />
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              <button
+                type="button"
+                class="btn btn-primary w-100"
+                (click)="addProduct()"
+                [disabled]="
+                  newProduct.productId <= 0 || newProduct.quantity <= 0
+                "
+              >
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Products List -->
+          <div
+            *ngIf="orderRequest.products.length > 0"
+            class="table-responsive"
+          >
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product ID</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let product of orderRequest.products; let i = index"
+                >
+                  <td>{{ product.productId }}</td>
+                  <td>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      [(ngModel)]="product.quantity"
+                      min="1"
+                      (change)="updateQuantity(i, product.quantity)"
+                      style="width: 80px"
+                    />
+                  </td>
+                  <td>$10.00</td>
+                  <!-- Static price for demo -->
+                  <td>{{ product.quantity * 10 | currency }}</td>
+                  <!-- Static price for demo -->
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm"
+                      (click)="removeProduct(i)"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="table-active">
+                  <td colspan="3" class="text-end">
+                    <strong>Order Total:</strong>
+                  </td>
+                  <td colspan="2">
+                    <strong>{{ calculateTotal() | currency }}</strong>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success mb-3">
+          {{ successMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-end">
+          <a routerLink="/orders" class="btn btn-secondary me-2">Cancel</a>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isLoading || orderRequest.products.length === 0"
+          >
+            <span
+              *ngIf="isLoading"
+              class="spinner-border spinner-border-sm me-1"
+            ></span>
+            {{ isLoading ? "Processing..." : "Place Order" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

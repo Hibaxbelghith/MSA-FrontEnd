@@ -7,6 +7,9 @@ import { ForgotPasswordComponent } from './features/customer/pages/forgot-passwo
 import { ResetPasswordComponent } from './features/customer/pages/reset-password/reset-password.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { AvisListComponent } from './avis-list/avis-list.component';
+import { OrderCreateComponent } from './features/order/components/order-create/order-create.component';
+import { OrderListComponent } from './features/order/components/order-list/order-list.component';
+import { OrderDetailComponent } from './features/order/components/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule) },
@@ -17,8 +20,13 @@ const routes: Routes = [
   { path: 'edit-customer/:id', component: EditCustomerComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
-  { path: '**', redirectTo: '/home' } // Redirect unknown routes
+  { path: 'orders/create', component: OrderCreateComponent },
+  { path: 'orders', component: OrderListComponent },
+  { path: 'orders/:id', component: OrderDetailComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+  { path: '**', redirectTo: '/login' } 
+  // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
+  // { path: '**', redirectTo: '/home' } // Redirect unknown routes
 ];
 
 

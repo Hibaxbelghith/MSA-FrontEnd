@@ -11,6 +11,10 @@ import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-l
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { AvisListComponent } from './avis-list/avis-list.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
+import { HttpClientModule } from '@angular/common/http';
+import { OrderCreateComponent } from './features/order/components/order-create/order-create.component';
+import { OrderListComponent } from './features/order/components/order-list/order-list.component';
+import { OrderDetailComponent } from './features/order/components/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     DashboardLayoutComponent,
     HomeComponentComponent,
     AvisListComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    OrderCreateComponent,
+    OrderListComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,9 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     CustomerModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
