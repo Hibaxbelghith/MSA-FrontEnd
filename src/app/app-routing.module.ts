@@ -22,7 +22,6 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },
-  { path: 'notification-stats', component: NotificationStatsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' } 
 ];

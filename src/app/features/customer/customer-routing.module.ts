@@ -4,6 +4,7 @@ import { CustomerListComponent } from './pages/customer-list/customer-list.compo
 import { EditCustomerComponent } from './pages/customer-form/edit-customer/edit-customer.component';
 import { CustomerStatisticsComponent } from './pages/customer-statistics/customer-statistics.component';
 import { DashboardLayoutComponent } from 'src/app/layouts/dashboard-layout/dashboard-layout.component';
+import { NotificationStatsComponent } from 'src/app/notification-stats/notification-stats.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'list', component: CustomerListComponent }, // '/dashboard/customers/list'
       { path: 'edit-customer/:id', component: EditCustomerComponent },
       { path: 'statistics', component: CustomerStatisticsComponent },
+      { path: 'notification-stats', component: NotificationStatsComponent }
     ]
   }
 

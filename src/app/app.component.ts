@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from './features/customer/services/notification.service';
 import { Router } from '@angular/router';
-import { NotificationWatcherService } from './features/customer/services/notification-watcher.service';
-import { Notification } from 'src/app/models/notification.model';
-
+import { Notification } from './models/notification.model';
 
 @Component({
   selector: 'app-root',
@@ -11,26 +10,50 @@ import { Notification } from 'src/app/models/notification.model';
 })
 export class AppComponent implements OnInit {
   title = 'e-commerce-front';
+  private shownNotificationIds: Set<string> = new Set();
+  private lastNotificationId: string | null = null; // Track the last notification id
+  private navigationInProgress: boolean = false; // Prevent multiple redirections
 
   constructor(
-    private notificationWatcher: NotificationWatcherService,
-    private router: Router
+    private notificationService: NotificationService,
+    private router: Router // Inject router here
   ) {}
 
- ngOnInit(): void {
-  this.notificationWatcher.latestNotification$.subscribe((notification: Notification | null) => {
-    if (!notification) return;
+  ngOnInit(): void {
+    this.pollNotifications();
+  }
 
-    console.log('Received notification:', notification); // 🔍 Add this line
+  pollNotifications(): void {
+    setInterval(() => {
+      this.notificationService.getAllNotifications().subscribe((notifications: Notification[]) => {
+        notifications.forEach(notification => {
+          // Check if notification ID is new and hasn't been processed before
+          if (!this.shownNotificationIds.has(notification.id) && notification.id !== this.lastNotificationId) {
+            this.shownNotificationIds.add(notification.id);
+            this.showNotification(notification);
+            this.lastNotificationId = notification.id; // Update the last notification id
+          }
+        });
+      });
+    }, 5000); // Poll every 5 seconds
+  }
 
-    if (notification.type === 'ORDER_CONFIRMATION') {
-      this.router.navigate(['/order-success']);
-    } else if (notification.type === 'PAYMENT_CONFIRMATION') {
-      this.router.navigate(['/payment-success']);
+  showNotification(notification: Notification): void {
+    // Only process a new notification if a navigation isn't already in progress
+    if (this.navigationInProgress) return;
+
+    if (notification.type === 'PAYMENT_CONFIRMATION') {
+      console.log('Payment notification:', notification);
+      this.navigationInProgress = true; // Set to true to block further redirection
+      this.router.navigate(['/payment-success']).then(() => {
+        this.navigationInProgress = false; // Reset after navigation
+      });
+    } else if (notification.type === 'ORDER_CONFIRMATION') {
+      console.log('Order notification:', notification);
+      this.navigationInProgress = true;
+      this.router.navigate(['/order-success']).then(() => {
+        this.navigationInProgress = false;
+      });
     }
-  });
-}
-
-
-
+  }
 }
