@@ -1,0 +1,59 @@
+<div class="statistics-container">
+
+    <!-- Cartes résumé -->
+    <div class="stats-cards">
+      <div class="stat-card">
+        <h3>Total Paiements</h3>
+        <p>{{ totalPayments }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Montant Total (€)</h3>
+        <p>{{ totalAmount | number: '1.0-2' }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Moyenne (€)</h3>
+        <p>{{ averageAmount | number: '1.0-2' }}</p>
+      </div>
+    </div>
+  
+    <!-- Graphiques -->
+    <div class="charts">
+      <div class="chart-box">
+        <h3>Répartition par Statut</h3>
+        <canvas baseChart
+                [data]="pieChartData"
+                [type]="pieChartType"
+                [options]="pieChartOptions">
+        </canvas>
+      </div>
+  
+      <div class="chart-box">
+        <h3>Montant par Méthode</h3>
+        <canvas baseChart
+                [data]="barChartData"
+                [type]="barChartType"
+                [options]="barChartOptions">
+        </canvas>
+      </div>
+    </div>
+  
+    <!-- Détails -->
+    <table class="details-table" *ngIf="amountByMethod.length">
+      <thead>
+        <tr>
+          <th>Méthode</th>
+          <th>Montant (€)</th>
+          <th>% du total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of amountByMethod">
+          <td>{{ item.method }}</td>
+          <td>{{ item.amount | number: '1.0-2' }}</td>
+          <td>{{ (item.amount / totalAmount * 100) | number:'1.0-0' }}%</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  </div>
+  

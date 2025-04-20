@@ -1,0 +1,42 @@
+<!-- payment-details.component.html -->
+<div class="payment-details-container">
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  
+    <div *ngIf="payment" class="payment-card mat-elevation-z8">
+      <h2>Détails du Paiement #{{payment.id}}</h2>
+      
+      <div class="detail-row">
+        <span class="label">Montant:</span>
+        <span>{{payment.amount | currency}}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="label">Méthode:</span>
+        <app-payment-method-selector [method]="payment.paymentMethod"></app-payment-method-selector>
+      </div>
+      
+      <div class="detail-row">
+        <span class="label">Statut:</span>
+        <app-payment-status-badge [status]="payment.paymentStatus"></app-payment-status-badge>
+      </div>
+      
+      <div class="detail-row">
+        <span class="label">Date:</span>
+        <span>{{payment.createdDate | date:'medium'}}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="label">ID Commande:</span>
+        <span>{{payment.orderId}}</span>
+      </div>
+      
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="goBack()">Retour</button>
+        <button *ngIf="payment.paymentStatus === 'PENDING'" mat-raised-button color="accent" 
+                (click)="verifyPayment(payment.id)">Vérifier</button>
+        <button mat-raised-button color="warn" (click)="requestRefund()">Demander un remboursement</button>
+      </div>
+    </div>
+  </div>

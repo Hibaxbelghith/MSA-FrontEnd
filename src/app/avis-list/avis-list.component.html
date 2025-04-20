@@ -1,0 +1,65 @@
+<div class="avis-list">
+  <h2>Liste des Avis</h2>
+
+  <!-- Section d'ajout d'avis -->
+  <div class="add-avis">
+    <h3>Ajouter un Avis</h3>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Formulaire d'ajout d'avis -->
+    <form (submit)="addAvis()" class="form-avis">
+      <label for="message">Message :</label>
+      <textarea [(ngModel)]="message" name="message" id="message" required></textarea>
+
+      <label for="rating">Note :</label>
+      <input type="number" [(ngModel)]="rating" name="rating" id="rating" min="1" max="5" required />
+
+      <button type="submit" class="btn-submit">Envoyer</button>
+    </form>
+  </div>
+
+  <!-- Message si aucune avis n'est trouvé -->
+  <div *ngIf="avisList && avisList.length === 0" class="no-avis">
+    <p>Aucun avis trouvé.</p>
+  </div>
+
+  <!-- Liste des avis -->
+  <div *ngFor="let avis of avisList" class="avis-card">
+    <!-- Section originale -->
+    <div class="review-header">
+      <p class="user-email">
+        <strong>👤 Utilisateur :</strong> {{ avis.utilisateur.email || 'Anonyme' }}
+      </p>
+      <p class="review-rating">
+        <strong>⭐ Note :</strong> 
+        <app-star-rating [rating]="avis.rating"></app-star-rating>
+
+      </p>
+      <p class="review-date">
+        <strong>📅 Date :</strong> {{ avis.date | date:'dd/MM/yyyy' }}
+      </p>
+    </div>
+  
+    <div class="review-message">
+      <strong>💬 Message :</strong> 
+      <p>{{ avis.message }}</p>
+    </div>
+  
+    <!-- Nouvelle analyse de sentiment -->
+    <div class="sentiment-display">
+      <strong>🧠 Analyse :</strong>
+      <span class="sentiment-label" 
+            [class.positive]="analyzeSentiment(avis.message).label === 'POSITIF'"
+            [class.negative]="analyzeSentiment(avis.message).label === 'NÉGATIF'"
+            [class.neutral]="analyzeSentiment(avis.message).label === 'NEUTRE'">
+        {{ analyzeSentiment(avis.message).emoji }} 
+        {{ analyzeSentiment(avis.message).label }}
+        (Score: {{ analyzeSentiment(avis.message).score }})
+      </span>
+    </div>
+  </div>
+</div>

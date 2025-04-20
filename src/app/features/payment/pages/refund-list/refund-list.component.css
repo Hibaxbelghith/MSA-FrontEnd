@@ -1,0 +1,29 @@
+.refund-form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .refund-list-container {
+    padding: 1rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }

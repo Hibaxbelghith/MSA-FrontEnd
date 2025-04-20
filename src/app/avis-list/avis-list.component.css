@@ -1,0 +1,159 @@
+/* Style global de la page */
+.avis-list {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+h2 {
+  color: #3f51b5; /* Couleur primaire */
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.add-avis {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.add-avis h3 {
+  color: #ffca28; /* Couleur jaune */
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+textarea, input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+}
+
+button {
+  background-color: #0d6efd; /* Couleur primaire */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0d6efd; /* Couleur primaire plus foncée */
+}
+
+.no-avis {
+  text-align: center;
+  font-size: 1.2em;
+  color: #888;
+}
+
+.avis-items {
+  list-style: none;
+  padding: 0;
+}
+
+.avis-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.avis-details {
+  padding-left: 10px;
+}
+
+.avis-item p {
+  margin: 5px 0;
+}
+
+.rating-stars {
+  color: #ffca28; /* Jaune pour les étoiles */
+  font-size: 1.2em;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .avis-list {
+    margin: 10px;
+  }
+
+  .add-avis {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .avis-item {
+    padding: 10px;
+  }
+
+  .avis-details {
+    padding-left: 0;
+  }
+
+
+
+}
+
+.avis-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.review-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.review-message {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.sentiment-display {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.positive { background: #e8f5e9; color: #2e7d32; }
+.negative { background: #ffebee; color: #c62828; }
+.neutral { background: #e3f2fd; color: #1565c0; }
