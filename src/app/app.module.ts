@@ -25,6 +25,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { PaymentModule } from './features/payment/payment.module';
+import { ProductListComponent } from './features/product/components/product-list/product-list.component';
+import { ProductDetailComponent } from './features/product/components/product-detail/product-detail.component';
+import { ProductFormComponent } from './features/product/components/product-form/product-form.component';
+import { ProductCreateComponent } from './features/product/components/product-create/product-create.component';
+import { ProductEditComponent } from './features/product/components/product-edit/product-edit.component';
+import { ProductStatisticsComponent } from './features/product/components/product-statistics/product-statistics.component';
+import { ProductsPageComponent } from './features/product/pages/products/products-page.component';
+import { ProductModule } from './features/product/product.module';
+import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -56,7 +66,12 @@ import { PaymentModule } from './features/payment/payment.module';
     MatButtonModule,
     MatIconModule,
     PaymentModule,
-    CommonModule
+    CommonModule,
+    ProductModule,
+    CommonModule,
+    SharedModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

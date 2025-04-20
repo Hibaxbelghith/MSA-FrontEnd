@@ -13,6 +13,11 @@ import { OrderDetailComponent } from './features/order/components/order-detail/o
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 import { NotificationStatsComponent } from './notification-stats/notification-stats.component';
+import { ProductsPageComponent } from './features/product/pages/products/products-page.component';
+import { ProductCreateComponent } from './features/product/components/product-create/product-create.component';
+import { ProductEditComponent } from './features/product/components/product-edit/product-edit.component';
+import { ProductDetailComponent } from './features/product/components/product-detail/product-detail.component';
+import { ProductStatisticsComponent } from './features/product/components/product-statistics/product-statistics.component';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule) },
@@ -30,10 +35,12 @@ const routes: Routes = [
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },
   { path: 'payments', loadChildren: () => import('./features/payment/payment.module').then(m => m.PaymentModule) },
+  { path:'statistics', component: ProductStatisticsComponent },
+  { path: 'products', loadChildren: () => import('./features/product/product.module').then(m => m.ProductModule) },
   { path: '**', redirectTo: '/login' } 
   // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
   // { path: '**', redirectTo: '/home' } // Redirect unknown routes
-  
+ 
 ];
 
 
