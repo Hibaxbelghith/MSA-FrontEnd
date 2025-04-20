@@ -10,6 +10,9 @@ import { AvisListComponent } from './avis-list/avis-list.component';
 import { OrderCreateComponent } from './features/order/components/order-create/order-create.component';
 import { OrderListComponent } from './features/order/components/order-list/order-list.component';
 import { OrderDetailComponent } from './features/order/components/order-detail/order-detail.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
+import { NotificationStatsComponent } from './notification-stats/notification-stats.component';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule) },
@@ -24,9 +27,12 @@ const routes: Routes = [
   { path: 'orders', component: OrderListComponent },
   { path: 'orders/:id', component: OrderDetailComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+  { path: 'order-success', component: OrderSuccessComponent },
+  { path: 'payment-success', component: PaymentSuccessComponent },
   { path: '**', redirectTo: '/login' } 
   // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
   // { path: '**', redirectTo: '/home' } // Redirect unknown routes
+  
 ];
 
 

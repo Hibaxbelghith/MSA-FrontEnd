@@ -15,6 +15,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrderCreateComponent } from './features/order/components/order-create/order-create.component';
 import { OrderListComponent } from './features/order/components/order-list/order-list.component';
 import { OrderDetailComponent } from './features/order/components/order-detail/order-detail.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
+import { NotificationStatsComponent } from './notification-stats/notification-stats.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgChartsModule } from 'ng2-charts';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+
+
+
 
 @NgModule({
   declarations: [
@@ -27,7 +39,10 @@ import { OrderDetailComponent } from './features/order/components/order-detail/o
     StarRatingComponent,
     OrderCreateComponent,
     OrderListComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    OrderSuccessComponent,
+    PaymentSuccessComponent,
+    NotificationStatsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,10 +50,13 @@ import { OrderDetailComponent } from './features/order/components/order-detail/o
     CustomerModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    CustomerModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    MatProgressSpinnerModule,
+    NgChartsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
