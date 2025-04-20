@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../services/customer.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  templateUrl: './signup.component.html'
 })
 export class SignupComponent {
   signupForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private customerService: CustomerService, private router: Router) {
+  constructor(private fb: FormBuilder, private customerService: CustomerService, private router: Router, private snackBar: MatSnackBar) {
     this.signupForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -34,15 +34,30 @@ export class SignupComponent {
 
     this.customerService.signup(this.signupForm.value).subscribe(
       (response) => {
-        console.log('✅ Response from backend:', response);
+        console.log('Response from backend:', response);
+        
+        // Afficher une alerte avec Snackbar
+      this.snackBar.open('Inscription réussie ! Redirection en cours...', 'Fermer', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+
+      // Redirection après 3 secondes
+      setTimeout(() => {
         this.router.navigate(['/login']);
-      },
+      }, 3000);
+    },
       (error) => {
-        console.error('❌ Signup error:', error);
-        this.errorMessage = error.error.message || 'Error during registration';
-      }
-    );
-  }
+        console.error('Erreur:', error);
+      this.snackBar.open(error.error.message || 'Email already exists.', 'Fermer', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+    }
+  );
+}
 
   // Méthode pour accéder aux champs du formulaire avec la syntaxe correcte
   get f() { return this.signupForm.controls; }

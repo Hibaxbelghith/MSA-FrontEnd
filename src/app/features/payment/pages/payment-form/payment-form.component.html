@@ -1,0 +1,128 @@
+<div class="payment-form-container">
+    <mat-card class="payment-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{ isVerificationMode ? 'Vérification du Paiement' : 'Nouveau Paiement' }}
+        </mat-card-title>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <form *ngIf="!isVerificationMode" [formGroup]="paymentForm" (ngSubmit)="onSubmitPayment()" class="payment-form">
+          <!-- Section Montant -->
+          <mat-form-field appearance="fill">
+            <mat-label>Montant</mat-label>
+            <input matInput formControlName="amount" type="number" step="0.01" min="0.01">
+            <mat-icon matSuffix>euro</mat-icon>
+            <mat-error *ngIf="paymentForm.get('amount')?.hasError('required')">
+              Le montant est requis
+            </mat-error>
+            <mat-error *ngIf="paymentForm.get('amount')?.hasError('min')">
+              Le montant doit être supérieur à 0
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Méthode de paiement -->
+          <mat-form-field appearance="fill">
+            <mat-label>Méthode de paiement</mat-label>
+            <mat-select formControlName="paymentMethod">
+              <mat-option *ngFor="let method of paymentMethods" [value]="method">
+                {{ method | titlecase }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="paymentForm.get('paymentMethod')?.hasError('required')">
+              La méthode de paiement est requise
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Référence de commande -->
+          <mat-form-field appearance="fill">
+            <mat-label>Référence de commande</mat-label>
+            <input matInput formControlName="orderReference">
+            <mat-error *ngIf="paymentForm.get('orderReference')?.hasError('required')">
+              La référence est requise
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- ID de commande -->
+          <mat-form-field appearance="fill">
+            <mat-label>ID de commande</mat-label>
+            <input matInput formControlName="orderId" type="number">
+            <mat-error *ngIf="paymentForm.get('orderId')?.hasError('required')">
+              L'ID de commande est requis
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Informations client -->
+          <div formGroupName="customer" class="customer-section">
+            <h3>Informations client</h3>
+            
+            <mat-form-field appearance="fill">
+              <mat-label>Prénom</mat-label>
+              <input matInput formControlName="firstname">
+              <mat-error *ngIf="paymentForm.get('customer.firstname')?.hasError('required')">
+                Le prénom est requis
+              </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="lastname">
+              <mat-error *ngIf="paymentForm.get('customer.lastname')?.hasError('required')">
+                Le nom est requis
+              </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email">
+              <mat-error *ngIf="paymentForm.get('customer.email')?.hasError('required')">
+                L'email est requis
+              </mat-error>
+              <mat-error *ngIf="paymentForm.get('customer.email')?.hasError('email')">
+                Veuillez entrer un email valide
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- Champ téléphone ajouté -->
+            <mat-form-field appearance="fill">
+              <mat-label>Téléphone (pour SMS OTP)</mat-label>
+              <input matInput formControlName="phoneNumber" type="tel" placeholder="+33612345678">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-hint>Format international requis (ex: +33612345678)</mat-hint>
+              <mat-error *ngIf="paymentForm.get('customer.phoneNumber')?.hasError('pattern')">
+                Format de téléphone invalide
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Payer</span>
+            <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+          </button>
+        </form>
+  
+        <!-- Formulaire de vérification OTP -->
+        <form *ngIf="isVerificationMode" [formGroup]="verificationForm" (ngSubmit)="onSubmitVerification()" class="verification-form">
+          <h3>Vérification OTP</h3>
+          <p *ngIf="sentToEmail">Un code de vérification a été envoyé à {{ sentToEmail }}</p>
+          <p *ngIf="sentToPhone">Un SMS a été envoyé au {{ sentToPhone }}</p>
+          
+          <mat-form-field appearance="fill">
+            <mat-label>Code OTP (6 chiffres)</mat-label>
+            <input matInput formControlName="otpCode" type="text" maxlength="6" inputmode="numeric">
+            <mat-error *ngIf="verificationForm.get('otpCode')?.hasError('required')">
+              Le code OTP est requis
+            </mat-error>
+            <mat-error *ngIf="verificationForm.get('otpCode')?.hasError('minlength') || verificationForm.get('otpCode')?.hasError('maxlength')">
+              Le code doit contenir 6 chiffres
+            </mat-error>
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit" [disabled]="verificationForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Vérifier</span>
+            <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

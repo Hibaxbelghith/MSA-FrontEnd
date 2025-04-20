@@ -13,11 +13,27 @@
   }
   
   .navbar .menu .btn {
+  margin-left: 15px;
+  padding: 7px 12px;
+  background: white;
+  color: #007bff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.navbar .menu .btn:hover {
+  background: #ffcb3b;
+  color: white;
+}
+
+
+.navbar .menu .btn {
+
     margin-left: 15px;
     padding: 6px 12px;
     background: white;
     color: #007bff;
     border-radius: 5px;
     text-decoration: none;
-  }
   
+}

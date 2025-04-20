@@ -1,0 +1,33 @@
+<!--<div class="container mt-4">
+    <h2>Edit Product</h2>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <app-product-form 
+      *ngIf="product"
+      [product]="product"
+      (formSubmit)="onFormSubmit($event)">
+    </app-product-form>
+  </div> -->
+
+
+
+  <div class="container mt-4">
+    <h2>Edit Product</h2>
+    
+    <!-- Error message display -->
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <!-- Display the form only if the product is loaded -->
+    <app-product-form 
+      *ngIf="product"
+      [product]="product"  
+      (formSubmit)="onFormSubmit($event)"  
+    >
+    </app-product-form>
+  </div>
+  

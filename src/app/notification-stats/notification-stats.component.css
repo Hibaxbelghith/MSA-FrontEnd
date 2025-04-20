@@ -1,0 +1,31 @@
+.stats-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stat-summary {
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  margin-bottom: 20px;
+}
+
+.refresh-button,
+.download-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.total-count {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.loading-spinner,
+.error-message {
+  text-align: center;
+  margin-top: 40px;
+}

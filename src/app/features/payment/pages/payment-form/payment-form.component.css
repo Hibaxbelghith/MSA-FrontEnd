@@ -1,0 +1,80 @@
+.payment-form-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .payment-card {
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-form, .verification-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .customer-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: #f9f9f9;
+  }
+  
+  .customer-section h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .verification-form {
+    text-align: center;
+  }
+  
+  .verification-form h3 {
+    color: #3f51b5;
+    margin-bottom: 1rem;
+  }
+  
+  .verification-form p {
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+  
+  /* Styles pour les messages snackbar */
+  .success-snackbar {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .payment-form-container {
+      padding: 1rem;
+    }
+    
+    .payment-card {
+      box-shadow: none;
+    }
+  }

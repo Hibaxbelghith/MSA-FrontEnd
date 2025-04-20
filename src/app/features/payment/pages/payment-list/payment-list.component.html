@@ -1,0 +1,71 @@
+<div class="payment-list-container">
+  <div class="header">
+    <h2>Payment List</h2>
+    <button mat-raised-button color="primary" routerLink="/payments/new">New Payment</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <mat-table [dataSource]="payments" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.id }}</mat-cell>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.amount | currency }}</mat-cell>
+      </ng-container>
+
+      <!-- Payment Method Column -->
+      <ng-container matColumnDef="paymentMethod">
+        <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
+        <mat-cell *matCellDef="let payment">
+          <app-payment-method-selector [method]="payment.paymentMethod"></app-payment-method-selector>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let payment">
+          <app-payment-status-badge [status]="payment.paymentStatus"></app-payment-status-badge>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Customer Column -->
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef>Customer</mat-header-cell>
+        <mat-cell *matCellDef="let payment">
+          {{ payment.customer?.firstname || 'N/A' }} {{ payment.customer?.lastname || '' }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let payment">
+          <button mat-icon-button color="primary" (click)="exportToPDF(payment.id)">
+            <mat-icon>picture_as_pdf</mat-icon>
+          </button>
+          <button *ngIf="payment.paymentStatus === 'PENDING'" mat-icon-button color="accent" 
+                  (click)="verifyPayment(payment.id)">
+            <mat-icon>verified</mat-icon>
+          </button>
+          <button *ngIf="payment.paymentStatus === 'CONFIRMED'" mat-icon-button color="warn" 
+                  (click)="requestRefund(payment.id, payment.amount)">
+            <mat-icon>money_off</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

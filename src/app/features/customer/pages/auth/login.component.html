@@ -1,6 +1,8 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg">
+        <div class="card-body">
       <h2 class="text-center mb-4">Login</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <div class="mb-3">
@@ -40,9 +42,11 @@
         <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
 
         <div class="text-center mt-3">
-          <a href="/forgot-password">Forgot your password?</a>
+          <a routerLink="/forgot-password">Forgot your password?</a>
         </div>
       </form>
+    </div>
+  </div>
     </div>
   </div>
 </div>

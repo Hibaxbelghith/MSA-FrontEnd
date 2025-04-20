@@ -1,0 +1,9 @@
+<div class="container mt-4">
+    <h2>Create New Product</h2>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <app-product-form (formSubmit)="onFormSubmit($event)"></app-product-form>
+  </div>
