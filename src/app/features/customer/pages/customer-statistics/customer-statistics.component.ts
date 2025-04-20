@@ -1,6 +1,6 @@
 import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
 import { CustomerService } from '../../services/customer.service';
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-customer-statistics',

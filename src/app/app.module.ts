@@ -25,9 +25,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,10 +50,11 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    NgChartsModule,
+    NgChartsModule.forRoot(),
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
