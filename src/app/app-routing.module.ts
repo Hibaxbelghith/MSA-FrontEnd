@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },
+  { path: 'payments', loadChildren: () => import('./features/payment/payment.module').then(m => m.PaymentModule) },
   { path: '**', redirectTo: '/login' } 
   // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
   // { path: '**', redirectTo: '/home' } // Redirect unknown routes

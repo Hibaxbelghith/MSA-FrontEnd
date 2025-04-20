@@ -1,26 +1,65 @@
 <nav class="sidebar">
-    <h3 class="sidebar-title">Menu</h3>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/statistics">
-          📊 Statistiques Clients
-        </a>
-      </li>
+  <h3 class="sidebar-title">Menu</h3>
+  <ul class="nav flex-column">
+    <!-- Section Clients -->
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/statistics"
+        routerLinkActive="active"
+      >
+        <mat-icon>assessment</mat-icon> Statistiques Clients
+      </a>
+    </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/notification-stats" routerLinkActive="active">
-          🔔 Statistiques Notifications
-        </a>
-      </li>
-      
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/notification-stats"
+        routerLinkActive="active"
+      >
+        <mat-icon>notifications</mat-icon> Statistiques Notifications
+      </a>
+    </li>
 
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/list"
+        routerLinkActive="active"
+      >
+        <mat-icon>list</mat-icon> Liste des Clients
+      </a>
+    </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/list">
-          📋 Liste des Clients
-        </a>
-      </li>
-      
-    </ul>
-  </nav>
-  
+    <!-- Section Paiements -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/payments" routerLinkActive="active">
+        <mat-icon>payment</mat-icon> Liste des Paiements
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/payments/new" routerLinkActive="active">
+        <mat-icon>add_circle</mat-icon> Nouveau Paiement
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/payments/statistics"
+        routerLinkActive="active"
+      >
+        <mat-icon>show_chart</mat-icon> Statistiques Paiements
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/payments/refunds"
+        routerLinkActive="active"
+      >
+        <mat-icon>swap_horiz</mat-icon> Remboursements
+      </a>
+    </li>
+  </ul>
+</nav>

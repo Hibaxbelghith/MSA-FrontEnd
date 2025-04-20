@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { PaymentModule } from './features/payment/payment.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    PaymentModule,
     CommonModule
   ],
   providers: [],
