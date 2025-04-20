@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, Validators ,FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CustomerService } from '../../services/customer.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reset-password',
@@ -16,7 +17,8 @@ export class ResetPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private cs: CustomerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,11 @@ export class ResetPasswordComponent implements OnInit {
           console.log('Success Response:', response); 
         
           if (response && response.message) {
-            alert(response.message);
+            this.snackBar.open('Password reset email sent!', 'Fermer', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
             this.router.navigate(['/login']);
           } else {
             alert('Unexpected response format');
