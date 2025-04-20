@@ -23,10 +23,8 @@ const routes: Routes = [
   { path: 'orders/create', component: OrderCreateComponent },
   { path: 'orders', component: OrderListComponent },
   { path: 'orders/:id', component: OrderDetailComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
-  { path: '**', redirectTo: '/login' } 
-  // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
-  // { path: '**', redirectTo: '/home' } // Redirect unknown routes
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default redirect
+  { path: '**', redirectTo: '/home' } // Redirect unknown routes
 ];
 
 
